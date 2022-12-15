@@ -15,20 +15,20 @@ db = SQLAlchemy(app)
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     device = db.Column(db.String(100))
-    directory_no = db.Column(db.Integer(1000))
+    directory_no = db.Column(db.String(100))
     phone_mac = db.Column(db.String(100))
-    user_directory = db.Column(db.Integer(1000))
-    pass_directory = db.Column(db.String(100))
+    user_directory = db.Column(db.String(100))
+    password_directory = db.Column(db.String(100))
     display_name = db.Column(db.String(100))
-    line1 = db.Column(db.Integer(1000))
-    line2 = db.Column(db(db.Integer(1000)))
+    line1 = db.Column(db.String(100))
+    line2 = db.Column(db.String(100))
 
-    def __init__(self, device, directory_no, phone_mac, user_directory, pass_directory, display_name, line1, line2):
+    def __init__(self, device, directory_no, phone_mac, user_directory, password_directory, display_name, line1, line2):
         self.device = device
         self.directory_no = directory_no
         self.phone_mac = phone_mac
         self.user_directory = user_directory
-        self.pass_directory = pass_directory
+        self.password_directory = password_directory
         self.display_name = display_name
         self.line1 = line1
         self.line2 = line2
@@ -51,12 +51,12 @@ def insert():
         directory_no = request.form['directory_no']
         phone_mac = request.form['phone_mac']
         user_directory = request.form['user_directory']
-        pass_directory = request.form['pass_directory']
+        password_directory = request.form['password_directory']
         display_name = request.form['display_name']
         line1 = request.form['line1']
         line2 = request.form['line2']
 
-        my_data = Data(device, directory_no, phone_mac, user_directory, pass_directory, display_name, line1, line2)
+        my_data = Data(device, directory_no, phone_mac, user_directory, password_directory, display_name, line1, line2)
         db.session.add(my_data)
         db.session.commit()
 
@@ -75,7 +75,7 @@ def update():
         my_data.directory_no = request.form['directory_no']
         my_data.phone_mac = request.form['phone_mac']
         my_data.user_directory = request.form['user_directory']
-        my_data.pass_directory = request.form['pass_directory']
+        my_data.password_directory = request.form['password_directory']
         my_data.display_name = request.form['display_name']
         my_data.line1 = request.form['line1']
         my_data.line2 = request.form['line2']
