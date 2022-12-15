@@ -23,10 +23,15 @@ class Data(db.Model):
     line1 = db.Column(db.Integer(1000))
     line2 = db.Column(db(db.Integer(1000)))
 
-    def __init__(self, name, email, phone):
-        self.name = name
-        self.email = email
-        self.phone = phone
+    def __init__(self, device, directory_no, phone_mac, user_directory, pass_directory, display_name, line1, line2):
+        self.device = device
+        self.directory_no = directory_no
+        self.phone_mac = phone_mac
+        self.user_directory = user_directory
+        self.pass_directory = pass_directory
+        self.display_name = display_name
+        self.line1 = line1
+        self.line2 = line2
 
 
 # This is the index route where we are going to
@@ -42,15 +47,20 @@ def Index():
 @app.route('/insert', methods=['POST'])
 def insert():
     if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        phone = request.form['phone']
+        device = request.form['device']
+        directory_no = request.form['directory_no']
+        phone_mac = request.form['phone_mac']
+        user_directory = request.form['user_directory']
+        pass_directory = request.form['pass_directory']
+        display_name = request.form['display_name']
+        line1 = request.form['line1']
+        line2 = request.form['line2']
 
-        my_data = Data(name, email, phone)
+        my_data = Data(device, directory_no, phone_mac, user_directory, pass_directory, display_name, line1, line2)
         db.session.add(my_data)
         db.session.commit()
 
-        flash("Employee Inserted Successfully")
+        flash("Phone Device Inserted Successfully")
 
         return redirect(url_for('Index'))
 
@@ -61,12 +71,17 @@ def update():
     if request.method == 'POST':
         my_data = Data.query.get(request.form.get('id'))
 
-        my_data.name = request.form['name']
-        my_data.email = request.form['email']
-        my_data.phone = request.form['phone']
+        my_data.device = request.form['device']
+        my_data.directory_no = request.form['directory_no']
+        my_data.phone_mac = request.form['phone_mac']
+        my_data.user_directory = request.form['user_directory']
+        my_data.pass_directory = request.form['pass_directory']
+        my_data.display_name = request.form['display_name']
+        my_data.line1 = request.form['line1']
+        my_data.line2 = request.form['line2']
 
         db.session.commit()
-        flash("Employee Updated Successfully")
+        flash("Phone Device Updated Successfully")
 
         return redirect(url_for('Index'))
 
@@ -77,7 +92,7 @@ def delete(id):
     my_data = Data.query.get(id)
     db.session.delete(my_data)
     db.session.commit()
-    flash("Employee Deleted Successfully")
+    flash("Phone Device Deleted Successfully")
 
     return redirect(url_for('Index'))
 
