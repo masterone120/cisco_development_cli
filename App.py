@@ -64,7 +64,6 @@ def insert():
 
         return redirect(url_for('Index'))
 
-
 # this is our update route where we are going to update our employee
 @app.route('/update', methods=['GET', 'POST'])
 def update():
@@ -95,6 +94,12 @@ def delete(id):
     flash("Phone Device Deleted Successfully")
 
     return redirect(url_for('Index'))
+
+
+@app.route('/excute/<id>/')
+def excute(id):
+    my_data = request.get_data(id)
+    return render_template('excute.html', employees=my_data)
 
 
 if __name__ == "__main__":
