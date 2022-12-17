@@ -69,14 +69,14 @@
                     {% for row in employees %}
                     <tr>
                         <td>{{row.id}}</td>
-                        <td>{{row.Device}}</td>
-                        <td>{{row.DirectoryNo}}</td>
-                        <td>{{row.PhoneMac}}</td>
-                        <td>{{row.userdirectory}}</td>
-                        <td>{{row.passworddirectory}}</td>
-                        <td>{{displayname}}</td>
-                        <td>{{line1}}</td>
-                        <td>{{line2}}</td>
+                        <td>{{row.device}}</td>
+                        <td>{{row.directory_no}}</td>
+                        <td>{{row.phone_mac}}</td>
+                        <td>{{row.user_directory}}</td>
+                        <td>{{row.password_directory}}</td>
+                        <td>{{row.display_name}}</td>
+                        <td>{{row.line1}}</td>
+                        <td>{{row.line2}}</td>
 
                         <td>
                             <a class="btn btn-warning btn-xs" data-target="#modaledit{{row.id}}" data-toggle="modal"
@@ -119,7 +119,8 @@
                                             <label>Device:</label>
                                             <input name="id" type="hidden" value="{{row.id}}">
 
-                                            <input class="form-control" name="name" type="text" value="{{row.Device}}">
+                                            <input class="form-control" name="device" type="text"
+                                                   value="{{row.device}}">
 
 
                                         </div>
@@ -128,9 +129,10 @@
                                         <div class="form-group">
 
 
-                                            <label>Email:</label>
+                                            <label>Directory NO.:</label>
 
-                                            <input class="form-control" name="email" type="text" value="{{row.email}}">
+                                            <input class="form-control" name="directory_no" type="text"
+                                                   value="{{row.directory_no}}">
 
 
                                         </div>
@@ -139,11 +141,47 @@
                                         <div class="form-group">
 
 
-                                            <label>Phone:</label>
+                                            <label>Phone MAC:</label>
 
-                                            <input class="form-control" name="phone" type="text" value="{{row.phone}}">
+                                            <input class="form-control" name="phone_mac" type="text"
+                                                   value="{{row.phone_mac}}">
 
 
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label>User Directory: </label>
+                                            <input class="form-control" name="user_directory" type="text"
+                                                   value="{{row.user_directory}}">
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label>Password Directory:</label>
+                                            <input class="form-control" name="password_directory" type="text"
+                                                   value="{{row.passwprd_directory}}">
+
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label> Display Name:</label>
+                                            <input class="form-control" name="display_name" type="text"
+                                                   value="{{row.display_name}}">
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label>Line 1:</label>
+                                            <input class="form-control" name="line1" type="text" value="{{row.line1}}">
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label>Line 2:</label>
+                                            <input class="form-control" name="line2" type="text" value="{{row.line2}}">
                                         </div>
 
 
@@ -205,10 +243,10 @@
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                                     <div>
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="first_name">Device</label>
+                                               for="device">Device</label>
 
                                         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                id="countries">
+                                                id="Device" name="device">
                                             <option selected>Choose a Platform</option>
                                             <option value="3945">3945</option>
                                             <option value="3845">3845</option>
@@ -219,47 +257,51 @@
                                     </div>
                                     <div>
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="last_name">Directory Number</label>
+                                               for="directory_no">Directory Number</label>
                                         <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="last_name" placeholder="Doe" required type="text">
-                                    </div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="company">Phone MAC</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="company" placeholder="Flowbite" required type="text">
-                                    </div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="phone">User Directory</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="phone" placeholder="user directory"
+                                               id="directory_no" name="directory_no" placeholder="Directory Number"
                                                required type="text">
                                     </div>
                                     <div>
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="website">Password Directory</label>
+                                               for="phone_mac">Phone MAC</label>
                                         <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="website" placeholder="password" required type="text">
+                                               id="phone_mac" name="phone_mac" placeholder="Phone MAC" required
+                                               type="text">
                                     </div>
                                     <div>
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="visitors">Display Name</label>
+                                               for="user_directory">User Directory</label>
                                         <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="visitors" placeholder="" required type="text">
+                                               id="user_directory" name="user_directory" placeholder="user directory"
+                                               required type="text">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                               for="password_directory">Password Directory</label>
+                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                               id="password_directory" name="password_directory" placeholder="password"
+                                               required type="text">
+                                    </div>
+                                    <div>
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                               for="display_name">Display Name</label>
+                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                               id="display_name" name="display_name" placeholder="" required
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="mb-6">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                           for="email">Line 1</label>
+                                           for="line1">Line 1</label>
                                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           id="email" placeholder="line1" required type="text">
+                                           id="line1" name="line1" placeholder="line1" required type="text">
                                 </div>
                                 <div class="mb-6">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                           for="password">Line 2</label>
+                                           for="line2">Line 2</label>
                                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           id="password" placeholder="•••••••••" required type="password">
+                                           id="line2" name="line2" placeholder="line 2" required type="password">
                                 </div>
 
 
@@ -293,10 +335,8 @@
 
         </div>
 
+
     </div>
-
-
-</div>
 
 
 {% endblock %}
