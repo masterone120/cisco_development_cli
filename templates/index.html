@@ -84,7 +84,8 @@
                             <a class="btn btn-danger btn-xs" href="/delete/{{row.id}}"
                                onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
 
-                            <a class="btn btn-info btn-xs" href="excute/{{row.id}}">Excute</a>
+                            <a class="btn btn-info btn-xs" data-target="#modalexcute{{row.id}}" data-toggle="modal"
+                               href="/excute/{{row.id}}">Excute</a>
 
 
                         </td>
@@ -218,6 +219,88 @@
 
                     </div>
 
+                    <div class="modal fade" id="modalexcute{{row.id}}" role="dialog">
+                        <div class="modal-dialog">
+
+
+                            <div class="modal-content">
+
+
+                                <div class="modal-header">
+
+
+                                    <h4 class="modal-title">Excute Information</h4>
+
+
+                                </div>
+
+
+                                <div class="modal-body">
+
+                                    <form action="{{url_for('excute')}}" class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label>Device:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text" value="{{row.device}}">
+                                            <label>Directory NO.:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text"
+                                                   value="{{row.directory_no}}">
+                                            <label>Phone MAC:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text" value="{{row.phone_mac}}">
+                                            <label>User Directory:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text"
+                                                   value="{{row.user_directory}}">
+                                            <label>Password Directory:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text"
+                                                   value="{{row.password_directory}}">
+                                            <label>Display Name:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text"
+                                                   value="{{row.display_name}}">
+                                            <label>Line 1:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text" value="{{row.line1}}">
+                                            <label>Line 2:</label>
+                                            <input aria-label="disabled input"
+                                                   class="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                   disabled id="disabled-input" type="text" value="{{row.line2}}">
+
+
+                                        </div>
+                                        <div class="modal-footer">
+
+
+                                            <button class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                                                    type="submit">Confirm & Excute
+                                            </button>
+
+
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
 
                     {% endfor %}
 
@@ -228,13 +311,16 @@
             </div>
 
 
-            <!-- Modal Add Employee-->
+        </div>
 
 
-            <div class="modal fade" id="mymodal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+        <!-- Modal Add Employee-->
+
+
+        <div class="modal fade" id="mymodal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
 
                             <h4 class="modal-title">Add Phone Device</h4>
                         </div>

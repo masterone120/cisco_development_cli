@@ -1,61 +1,17 @@
 {% extends 'base.html' %}
 {% include 'header.html' %}
-
-
-{% block title %} Home {% endblock %}
+{% block title %} Excute {% endblock %}
 
 
 {% block body %}
-<div class="container">
+<h1 align="center">Excute Configuration Successfully Deployed!</h1>
 
-    <div class="row">
-        <div class="col md-12">
-            {% for row in employees %}
-            <div class="jumbotron p-3">
+<div class="grid justify-items-center box-decoration-clone hover:box-decoration-slice">
 
-                <table class="table table-hover table-dark" id="{{row.id}}">
+  <span class="grid justify-items-center bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-900 h-56 grid grid-cols-3 gap-4 content-center mx-8">
 
-                    <tr>
-
-                        <th>ID</th>
-                        <th>Device</th>
-                        <th>Directory NO.</th>
-                        <th>Phone MAC</th>
-                        <th>User Directory</th>
-                        <th>Password Directory</th>
-                        <th>Display Name</th>
-                        <th>Line 1</th>
-                        <th>Line 2</th>
-
-                    </tr>
+</span>
 
 
-                    <tr>
-                        <td>{{row.id}}</td>
-                        <td>{{row.device}}</td>
-                        <td>{{row.directory_no}}</td>
-                        <td>{{row.phone_mac}}</td>
-                        <td>{{row.user_directory}}</td>
-                        <td>{{row.password_directory}}</td>
-                        <td>{{row.display_name}}</td>
-                        <td>{{row.line1}}</td>
-                        <td>{{row.line2}}</td>
-
-
-                    </tr>
-                    {% endfor %}
-                </table>
-                <div class="flex justify-center">
-                    <button class="flex justify-center text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                            type="button">
-                        Confirm
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
 </div>
-
-
 {% endblock %}

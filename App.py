@@ -1,3 +1,4 @@
+from Tools.scripts.make_ctype import method
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
@@ -96,10 +97,9 @@ def delete(id):
     return redirect(url_for('Index'))
 
 
-@app.route('/excute/<id>/')
-def excute(id):
-    my_data = request.get_data(id)
-    return render_template('excute.html', employees=my_data)
+@app.route('/excute')
+def excute():
+    return render_template('excute.html')
 
 
 if __name__ == "__main__":
