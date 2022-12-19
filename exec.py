@@ -17,7 +17,7 @@ ssh.connect(router_ip,
             look_for_keys=False)
 
 # Run command.
-ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("show int status")
+ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho running-config")
 
 output = ssh_stdout.readlines()
 # Close connection.
@@ -26,7 +26,6 @@ ssh.close()
 # Analyze show ip route output
 for line in output:
     if "" in line:
-        print("Found default route:")
         print(line)
 
 # ------------------------------------------------------------------------------
@@ -35,12 +34,13 @@ for line in output:
 # import time
 #
 #
-# HOST = 'HOSTADDR'
-# user = 'user'
-# password = 'password'
-#
+# HOST = '192.168.5.11'
+# user = 'alisfactory'
+# password = 'Ad56#33n$xw3'
+# ssh = paramiko.SSHClient()
 # ssh_client = paramiko.SSHClient()
-# ssh_client = set_missing_host_key_policy(paramiko.AutoAddPolicy())
+# ssh.load_system_host_keys()
+# ssh = set_missing_host_key_policy(paramiko.AutoAddPolicy())
 # ssh_client.connect(host=HOST, username=user, password=password)
 #
 # print("Successfully connected to: " + HOST)
@@ -48,7 +48,7 @@ for line in output:
 # remote_connection = ssh_client.invoke_shell()
 # remote_connection.send("en\n")
 # remote_connection.send("config ter\n")
-# remote_connection.send("{{command}}\n")
+# remote_connection.send("do sho run\n")
 # time.sleep(1)
 #
 # output = remote_connection.recv(6553)

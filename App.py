@@ -1,6 +1,6 @@
-from Tools.scripts.make_ctype import method
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+import paramiko
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
@@ -97,10 +97,49 @@ def delete(id):
     return redirect(url_for('Index'))
 
 
-@app.route('/excute')
+@app.route('/excute', methods=['GET', 'POST'])
 def excute():
-    return render_template('excute.html')
+    # return render_template('excute.html')
+
+    router_ip = "192.168.5.11"
+    router_username = "alisfactory"
+    router_password = "Ad56#33n$xw3"
+
+    ssh = paramiko.SSHClient()
+
+    # Load SSH host keys.
+    ssh.load_system_host_keys()
+    # Add SSH host key automatically if needed.
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # Connect to router using username/password authentication.
+    ssh.connect(router_ip,
+                username=router_username,
+                password=router_password,
+                look_for_keys=False)
+
+    # Run command.
+    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
+
+    output = ssh_stdout.readlines()
+
+    # Close connection.
+    ssh.close()
+
+    # Analyze show ip route output
+
+    with open('outputed.txt', 'w') as f:
+        for line in output:
+            f.writelines(line)
+
+    b_lines = [row for row in (list(open("outputed.txt")))]
+
+    return render_template('excute.html', b_lines=b_lines)
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# @app.route('/')
+# def run_script():
+#     file = open(r'/path/to/your/file.py', 'r').read()
+#     return exec(file)
