@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% block title %} Excute {% endblock %}
+
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-success alert-dismissable" role="alert">
+
+    <button aria-label="close" class="close" data-dismiss="alert" type="button">
+
+        <span aria-hidden="true">x</span>
+
+    </button>
+
+
+    {{message}}
+
+
+</div>
+
+
+{% endfor %}
+
+{% endif %}
+{% endwith %}
+
+<div class="mt-10 sm:mt-0">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 float-center">Add New Device Platform</h3>
+                <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+            </div>
+        </div>
+        <div class="mt-5 md:col-span-2 md:mt-0">
+            <form action="{{url_for('devices')}}" method="POST">
+                <div class="overflow-hidden shadow sm:rounded-md">
+                    <div class="bg-white px-4 py-5 sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-700" for="platform">Select
+                                    Platform:</label>
+                                <select autocomplete="platform"
+                                        class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                        id="platform"
+                                        name="platform">
+                                    <option>Cisco 2811</option>
+                                    <option>Cisco 2911</option>
+                                    <option>Cisco 3845</option>
+                                    <option>Cisco 3945</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-700" for="ipaddress_platform">IP
+                                    Address:</label>
+                                <input autocomplete="ipaddress_platform"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                       id="ipaddress_platform"
+                                       name="ipaddress_platform"
+                                       type="text">
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-4">
+                                <label class="block text-sm font-medium text-gray-700" for="username_platform">User
+                                    Name(privilage admin):</label>
+                                <input autocomplete="username_platform"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                       id="username_platform"
+                                       name="username_platform"
+                                       type="text">
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-700"
+                                       for="password_platform">Password:</label>
+                                <input autocomplete="password_platform"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                       id="password_platform"
+                                       name="password_platform"
+                                       type="password">
+                            </div>
+
+                            <!--            <div class="col-span-6">-->
+                            <!--              <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>-->
+                            <!--              <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">-->
+                            <!--            </div>-->
+
+                            <!--            <div class="col-span-6 sm:col-span-6 lg:col-span-2">-->
+                            <!--              <label for="city" class="block text-sm font-medium text-gray-700">City</label>-->
+                            <!--              <input type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">-->
+                            <!--            </div>-->
+
+                            <!--            <div class="col-span-6 sm:col-span-3 lg:col-span-2">-->
+                            <!--              <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label>-->
+                            <!--              <input type="text" name="region" id="region" autocomplete="address-level1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">-->
+                            <!--            </div>-->
+
+                            <!--            <div class="col-span-6 sm:col-span-3 lg:col-span-2">-->
+                            <!--              <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>-->
+                            <!--              <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">-->
+                            <!--            </div>-->
+                            <!--          </div>-->
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                            <button class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    type="submit">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

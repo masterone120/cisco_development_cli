@@ -35,6 +35,20 @@ class Data(db.Model):
         self.line2 = line2
 
 
+class Devices(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    platform = db.Column(db.String(100))
+    ipaddress_platform = db.Column(db.String(100))
+    username_platform = db.Column(db.String(100))
+    password_platform = db.Column(db.String(100))
+
+    def __init__(self, platform, ipaddress_platform, username_platform, password_platform):
+        self.platform = platform
+        self.ipaddress_platform = ipaddress_platform
+        self.username_platform = username_platform
+        self.password_platform = password_platform
+
+
 # This is the index route where we are going to
 # query on all our employee data
 @app.route('/')
@@ -64,6 +78,7 @@ def insert():
         flash("Phone Device Inserted Successfully")
 
         return redirect(url_for('Index'))
+
 
 # this is our update route where we are going to update our employee
 @app.route('/update', methods=['GET', 'POST'])
@@ -134,6 +149,20 @@ def excute():
     b_lines = [row for row in (list(open("outputed.txt")))]
 
     return render_template('excute.html', b_lines=b_lines)
+
+
+@app.route('/devices', methods=['GET', 'POST'])
+def devices():
+    if request.method == 'POST':
+        platform = request.form['platform']
+        ipaddress_platform = request.form['ipaddress_platform']
+        username_platform = request.form['username_platform']
+        password_platform = request.form['password_platform']
+        my_devices = Devices(platform, ipaddress_platform, username_platform, password_platform)
+        db.session.add(my_devices)
+        db.session.commit()
+        flash('Add Device Successfully!')
+    return render_template('devices.html')
 
 
 if __name__ == "__main__":
