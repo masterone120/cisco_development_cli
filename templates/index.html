@@ -164,7 +164,7 @@
 
                                             <label>Password Directory:</label>
                                             <input class="form-control" name="password_directory" type="text"
-                                                   value="{{row.passwprd_directory}}">
+                                                   value="{{row.password_directory}}">
 
                                         </div>
 
@@ -316,7 +316,6 @@
 
         <!-- Modal Add Employee-->
 
-
         <div class="modal fade" id="mymodal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -327,22 +326,28 @@
                         <div class="modal-body">
 
 
+
                             <form action="{{url_for('insert')}}" method="POST">
+
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
+
                                     <div>
+
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                for="device">Device</label>
 
                                         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 id="device" name="device">
-                                            <option selected>Choose a Platform</option>
-                                            <option value="3945">3945</option>
-                                            <option value="3845">3845</option>
-                                            <option value="2911">2911</option>
-                                            <option value="2811">2811</option>
+
+                                            <option selected>Choose Device</option>
+                                            {% for device in all_devices %}
+                                            <option>{{device.name_platform}}</option>
+                                            {% endfor %}
+
                                         </select>
 
                                     </div>
+
                                     <div>
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                                for="directory_no">Directory Number</label>
@@ -396,6 +401,8 @@
                                 <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                         type="submit">Save
                                 </button>
+
+
                             </form>
 
 
@@ -421,10 +428,9 @@
             </div>
 
 
-        </div>
+    </div>
 
 
     </div>
-
 
 {% endblock %}

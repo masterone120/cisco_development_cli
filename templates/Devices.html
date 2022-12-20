@@ -29,12 +29,174 @@
 {% endif %}
 {% endwith %}
 
+
 <div class="mt-10 sm:mt-0">
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900 float-center">Add New Device Platform</h3>
-                <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive mail.</p>
+                <h3 class="text-lg font-medium leading-6 text-gray-900 flex justify-right">Add New Device Platform</h3>
+                <p class="mt-1 text-sm text-gray-600 flex justify-right">Use a permanent address where you can receive
+                    mail.</p>
+
+                <div class="w-full max-w-md p-4 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Devices</h5>
+
+                    </div>
+
+
+                    <div class="flow-root">
+                        <ul class="divide-y divide-gray-200 dark:divide-gray-700" role="list">
+                            {% for device in devices_all %}
+                            <li class="py-3 sm:py-4">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-shrink-0">
+                                        <img alt="Neil image" class="w-8 h-8 rounded-full" src="../static/router.jpg">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                            {{device.platform}}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                            {{device.ipaddress_platform}}
+                                        </p>
+                                    </div>
+                                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        {{device.name_platform}}
+                                    </div>
+                                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        <a class="btn btn-info btn-xs" data-target="#modaledevices{{device.id}}"
+                                           data-toggle="modal"
+                                           href="/edevices/{{device.id}}">Edit</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="modal fade" id="modaledevices{{device.id}}" role="dialog">
+                                <div class="modal-dialog">
+
+
+                                    <div class="modal-content">
+
+
+                                        <div class="modal-header">
+
+
+                                            <h4 class="modal-title">Update Device</h4>
+
+
+                                        </div>
+
+
+                                        <div class="modal-body">
+
+
+                                            <form action="{{url_for('edvices')}}" method="POST">
+
+
+                                                <div class="form-group">
+
+
+                                                    <label>Platform:</label>
+                                                    <input name="id" type="hidden" value="{{device.id}}">
+
+                                                    <select autocomplete="platform"
+                                                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                            id="platform"
+                                                            name="platform">
+                                                        <option>{{device.platform}}</option>
+                                                        <option>Cisco 2811</option>
+                                                        <option>Cisco 2911</option>
+                                                        <option>Cisco 3845</option>
+                                                        <option>Cisco 3945</option>
+                                                    </select>
+
+
+                                                </div>
+
+
+                                                <div class="form-group">
+
+
+                                                    <label>Device Name:</label>
+
+                                                    <input class="form-control" name="name_platform" type="text"
+                                                           value="{{device.name_platform}}">
+
+
+                                                </div>
+
+
+                                                <div class="form-group">
+
+
+                                                    <label>IP Address:</label>
+
+                                                    <input class="form-control" name="ipaddress_platform" type="text"
+                                                           value="{{device.ipaddress_platform}}">
+
+
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <label>User Name: </label>
+                                                    <input class="form-control" name="username_platform" type="text"
+                                                           value="{{device.username_platform}}">
+
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <label>Password:</label>
+                                                    <input class="form-control" name="password_platform" type="text"
+                                                           value="{{device.password_platform}}">
+
+                                                </div>
+
+
+                                                <div class="form-group">
+
+
+                                                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                                            type="button">Update
+                                                    </button>
+
+
+                                                </div>
+
+
+                                            </form>
+
+
+                                        </div>
+
+
+                                        <div class="modal-footer">
+
+
+                                            <button class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                                                    data-dismiss="modal" type="button">Close
+                                            </button>
+
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
         <div class="mt-5 md:col-span-2 md:mt-0">
@@ -55,6 +217,14 @@
                                     <option>Cisco 3945</option>
                                 </select>
                             </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-700" for="name_platform">Name:</label>
+                                <input autocomplete="ipaddress_platform"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                       id="name_platform"
+                                       name="name_platform"
+                                       type="text">
+                            </div>
 
                             <div class="col-span-6 sm:col-span-3">
                                 <label class="block text-sm font-medium text-gray-700" for="ipaddress_platform">IP
@@ -66,7 +236,7 @@
                                        type="text">
                             </div>
 
-                            <div class="col-span-6 sm:col-span-4">
+                            <div class="col-span-6 sm:col-span-3">
                                 <label class="block text-sm font-medium text-gray-700" for="username_platform">User
                                     Name(privilage admin):</label>
                                 <input autocomplete="username_platform"

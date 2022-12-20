@@ -41,12 +41,14 @@ class Devices(db.Model):
     ipaddress_platform = db.Column(db.String(100))
     username_platform = db.Column(db.String(100))
     password_platform = db.Column(db.String(100))
+    name_platform = db.Column(db.String(100))
 
-    def __init__(self, platform, ipaddress_platform, username_platform, password_platform):
+    def __init__(self, platform, ipaddress_platform, username_platform, password_platform, name_platform):
         self.platform = platform
         self.ipaddress_platform = ipaddress_platform
         self.username_platform = username_platform
         self.password_platform = password_platform
+        self.name_platform = name_platform
 
 
 # This is the index route where we are going to
@@ -54,8 +56,9 @@ class Devices(db.Model):
 @app.route('/')
 def Index():
     all_data = Data.query.all()
+    all_devices = Devices.query.all()
 
-    return render_template("index.html", employees=all_data)
+    return render_template("index.html", employees=all_data, all_devices=all_devices)
 
 
 # this route is for inserting data to mysql database via html forms
@@ -158,12 +161,29 @@ def devices():
         ipaddress_platform = request.form['ipaddress_platform']
         username_platform = request.form['username_platform']
         password_platform = request.form['password_platform']
-        my_devices = Devices(platform, ipaddress_platform, username_platform, password_platform)
+        name_platform = request.form['name_platform']
+        my_devices = Devices(platform, ipaddress_platform, username_platform, password_platform, name_platform)
         db.session.add(my_devices)
         db.session.commit()
         flash('Add Device Successfully!')
-    return render_template('devices.html')
 
+    devices_all = Devices.query.all()
+    return render_template('devices.html', devices_all=devices_all)
+
+
+@app.route('/edevices', methods=['GET', 'POST'])
+def edvices():
+    if request.method == 'POST':
+        my_devices = Devices.query.get(request.form.get('id'))
+        my_devices.platform = request.form['platform']
+        my_devices.name_platform = request.form['name_platform']
+        my_devices.ipaddress_platform = request.form['ipaddress_platform']
+        my_devices.username_platform = request.form['username_platform']
+        my_devices.password_platform = request.form['password_platform']
+        db.session.commit()
+
+        flash('Edit device successfully!')
+        return redirect(url_for('devices'))
 
 if __name__ == "__main__":
     app.run(debug=True)
