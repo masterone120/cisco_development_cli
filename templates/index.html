@@ -422,15 +422,54 @@
                     </div>
 
 
-                </div>
-
-
             </div>
 
 
-    </div>
+        </div>
 
 
     </div>
+
+
+</div>
+
+
+<!-- Pagination Links-->
+<div class="text-center">
+    <a class="btn btn-outline-dark
+       {% if employees.page == 1 %}disabled{% endif %}"
+       href="{{ url_for('Index', page=employees.prev_num) }}">
+        &laquo;
+    </a>
+    <!-- Loop through the number of pages to display a link for each-->
+    {% for page_num in employees.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    <!-- Check for the active page and set the link to "Active"-->
+    {% if employees.page == page_num %}
+    <a class="btn btn-dark"
+       href="{{ url_for('Index', page=page_num) }}">
+        {{ page_num }}
+    </a>
+    {% else %}
+    <a class="btn btn-outline-dark"
+       href="{{ url_for('Index', page=page_num) }}">
+        {{ page_num }}
+    </a>
+    {% endif %}
+    {% else %}
+    ...
+    {% endif %}
+    {% endfor %}
+    <a class="btn btn-outline-dark
+       {% if employees.page == employees.pages %}disabled{% endif %}"
+       href="{{ url_for('Index', page=employees.next_num) }}">
+        &raquo;
+    </a>
+</div>
+<p class="text-center mt-3">
+    Showing page {{ employees.page }} of {{ employees.pages }}
+</p>
+
 
 {% endblock %}
+

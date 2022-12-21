@@ -55,7 +55,9 @@ class Devices(db.Model):
 # query on all our employee data
 @app.route('/')
 def Index():
-    all_data = Data.query.all()
+    page = request.args.get('page', 1, type=int)
+    all_data = Data.query.paginate(page=page, per_page=10)
+
     all_devices = Devices.query.all()
 
     return render_template("index.html", employees=all_data, all_devices=all_devices)
@@ -185,10 +187,16 @@ def edvices():
         flash('Edit device successfully!')
         return redirect(url_for('devices'))
 
+
+@app.route('/ddevices/<id>/', methods=['GET', 'POST'])
+def ddevices(id):
+    my_devices = Devices.query.get(id)
+    db.session.delete(my_devices)
+    db.session.commit()
+    flash("Device Deleted Successfully")
+
+    return redirect(url_for('devices'))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-# @app.route('/')
-# def run_script():
-#     file = open(r'/path/to/your/file.py', 'r').read()
-#     return exec(file)
