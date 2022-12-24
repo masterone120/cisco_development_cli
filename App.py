@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, Response
 from flask_sqlalchemy import SQLAlchemy
 import paramiko
 
@@ -49,6 +49,7 @@ class Devices(db.Model):
         self.username_platform = username_platform
         self.password_platform = password_platform
         self.name_platform = name_platform
+
 
 
 # This is the index route where we are going to
@@ -117,43 +118,6 @@ def delete(id):
     return redirect(url_for('Index'))
 
 
-@app.route('/excute', methods=['GET', 'POST'])
-def excute():
-    # return render_template('excute.html')
-
-    router_ip = "192.168.5.11"
-    router_username = "alisfactory"
-    router_password = "Ad56#33n$xw3"
-
-    ssh = paramiko.SSHClient()
-
-    # Load SSH host keys.
-    ssh.load_system_host_keys()
-    # Add SSH host key automatically if needed.
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    # Connect to router using username/password authentication.
-    ssh.connect(router_ip,
-                username=router_username,
-                password=router_password,
-                look_for_keys=False)
-
-    # Run command.
-    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
-
-    output = ssh_stdout.readlines()
-
-    # Close connection.
-    ssh.close()
-
-    # Analyze show ip route output
-
-    with open('outputed.txt', 'w') as f:
-        for line in output:
-            f.writelines(line)
-
-    b_lines = [row for row in (list(open("outputed.txt")))]
-
-    return render_template('excute.html', b_lines=b_lines)
 
 
 @app.route('/devices', methods=['GET', 'POST'])
@@ -196,6 +160,51 @@ def ddevices(id):
     flash("Device Deleted Successfully")
 
     return redirect(url_for('devices'))
+
+
+@app.route('/excute/', methods=['GET'])
+def excute():
+    my_devices = Devices.query.get(request.form.get('id'))
+    my_devices.router_ip = request.form.get('ipaddress_platform')
+    my_devices.router_username = request.form.get('username_platform')
+    my_devices.router_password = request.form.get('password_platform')
+
+    ssh = paramiko.SSHClient()
+
+    # Load SSH host keys.
+    ssh.load_system_host_keys()
+    # Add SSH host key automatically if needed.
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # Connect to router using username/password authentication.
+    ssh.connect(my_devices.router_ip,
+                username=my_devices.router_username,
+                password=my_devices.router_password,
+                look_for_keys=False)
+
+    # Run command.
+    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
+
+    output = ssh_stdout.readlines()
+
+    # Close connection.
+    ssh.close()
+
+    # Analyze show ip route output
+
+    with open('outputed.txt', 'w') as f:
+        for line in output:
+            f.writelines(line)
+
+    b_lines = [row for row in (list(open("outputed.txt")))]
+
+    return render_template('excute.html', b_lines=b_lines)
+
+    # for line in output:
+    #          yield line
+    #
+    # return Response(g(), mimetype='text/html')
+    # datas = Data.query.all()
+    # return render_template("excute.html", datas=datas)
 
 
 if __name__ == "__main__":
