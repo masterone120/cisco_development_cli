@@ -1,7 +1,8 @@
-import paramiko
-from flask import request, render_template
-
-from App import Devices
+# import paramiko
+#
+# from flask import request, render_template
+#
+# from App import Devices
 
 
 # router_ip = "192.168.5.11"
@@ -59,40 +60,41 @@ from App import Devices
 # # print(output.decode('ascii'))
 # #
 # # ssh_client.close()
-def excute():
-    my_devices = Devices.query.all()
-    for devices in my_devices:
-        if devices.id == Devices.query.get(request.form.get('id')):
-            router_ip = devices.ipaddress_platform
-            router_username = devices.username_platform
-            router_password = devices.password_platform
+# def excute():
+import paramiko
+from flask import request
+from flask_sqlalchemy import SQLAlchemy
+import MySQLdb as mdb
+import sys
 
-            ssh = paramiko.SSHClient()
+from App import Devices
 
-            # Load SSH host keys.
-            ssh.load_system_host_keys()
-            # Add SSH host key automatically if needed.
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            # Connect to router using username/password authentication.
-            ssh.connect(router_ip,
-                        username=router_username,
-                        password=router_password,
-                        look_for_keys=False)
+con = None
+try:
+    con = mdb.connect('localhost', 'root', 'root', 'crud')
 
-            # Run command.
-            ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
+    cur = con.cursor()
 
-            output = ssh_stdout.readlines()
+    # cur.execute("SET @ids := %s;")
+    query = """SET @ids := %s;"""
+    my_data = '3'
+    tuple1 = (my_data)
+    cur.execute(query, tuple1)
+    cur.execute(
+        "SELECT platform,name_platform,ipaddress_platform,password_platform,username_platform  FROM `crud`.`devices` WHERE id=@ids ;")
 
-            # Close connection.
-            ssh.close()
+    ver = cur.fetchone()
+    # ssh_client = paramiko.SSHClient()
+    # ssh_client.connect(hostname='hostname', username=ver[3], password=ver[4])
 
-            # Analyze show ip route output
+    print(ver[1])
 
-            with open('outputed.txt', 'w') as f:
-                for line in output:
-                    f.writelines(line)
+except mdb.Error as e:
 
-            b_lines = [row for row in (list(open("outputed.txt")))]
+    print("Error %d: %s" % (e.args[0], e.args[1]))
+    sys.exit(1)
 
-            return render_template('excute.html', b_lines=b_lines)
+finally:
+
+    if con:
+        con.close()
