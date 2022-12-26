@@ -33,7 +33,7 @@ Gi1/0/32                     notconnect   5            auto   auto 10/100/1000Ba
 Gi1/0/33                     notconnect   5            auto   auto 10/100/1000BaseTX
 Gi1/0/34                     notconnect   5            auto   auto 10/100/1000BaseTX
 Gi1/0/35                     connected    5          a-full  a-100 10/100/1000BaseTX
-Gi1/0/36                     connected    5          a-full a-1000 10/100/1000BaseTX
+Gi1/0/36                     notconnect   5            auto   auto 10/100/1000BaseTX
 Gi1/0/37                     notconnect   5            auto   auto 10/100/1000BaseTX
 Gi1/0/38                     notconnect   5            auto   auto 10/100/1000BaseTX
 Gi1/0/39                     notconnect   5            auto   auto 10/100/1000BaseTX

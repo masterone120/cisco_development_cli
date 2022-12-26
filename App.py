@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, Response
+import mysql
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 import paramiko
-import MySQLdb as mdb
-import sys
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
@@ -25,6 +24,7 @@ class Data(db.Model):
     display_name = db.Column(db.String(100))
     line1 = db.Column(db.String(100))
     line2 = db.Column(db.String(100))
+
 
     def __init__(self, device, directory_no, phone_mac, user_directory, password_directory, display_name, line1, line2):
         self.device = device
@@ -65,6 +65,10 @@ def Index():
 
     return render_template("index.html", employees=all_data, all_devices=all_devices)
 
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 # this route is for inserting data to mysql database via html forms
 @app.route('/insert', methods=['POST'])
