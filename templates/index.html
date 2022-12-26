@@ -83,7 +83,6 @@
                                href="/update/{{row.id}}">Edit</a>
                             <a class="btn btn-danger btn-xs" href="/delete/{{row.id}}"
                                onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
-
                             <a class="btn btn-info btn-xs" data-target="#modalexcute{{row.id}}" data-toggle="modal"
                                href="/excute/{{row.id}}">Excute</a>
 
@@ -220,7 +219,8 @@
                     </div>
 
                     <div class="modal fade" id="modalexcute{{row.id}}" role="dialog">
-                        <div class="modal-dialog">
+
+                    <div class="modal-dialog">
 
 
                             <div class="modal-content">

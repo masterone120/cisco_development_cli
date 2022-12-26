@@ -77,17 +77,17 @@ try:
 
     # cur.execute("SET @ids := %s;")
     query = """SET @ids := %s;"""
-    my_data = '3'
-    tuple1 = (my_data)
+    cur.execute("SELECT id  FROM `crud`.`devices`;")
+    tuple1 = cur.fetchone()
     cur.execute(query, tuple1)
     cur.execute(
         "SELECT platform,name_platform,ipaddress_platform,password_platform,username_platform  FROM `crud`.`devices` WHERE id=@ids ;")
 
     ver = cur.fetchone()
-    # ssh_client = paramiko.SSHClient()
-    # ssh_client.connect(hostname='hostname', username=ver[3], password=ver[4])
+    # # ssh_client = paramiko.SSHClient()
+    # # ssh_client.connect(hostname='hostname', username=ver[3], password=ver[4])
 
-    print(ver[1])
+    print(ver)
 
 except mdb.Error as e:
 
