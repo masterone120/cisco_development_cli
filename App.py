@@ -1,7 +1,9 @@
+import current as current
 import mysql
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 import paramiko
+import MySQLdb as mdb
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
@@ -15,7 +17,7 @@ db = SQLAlchemy(app)
 
 # Creating model table for our CRUD database
 class Data(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id_data = db.Column(db.Integer, primary_key=True)
     device = db.Column(db.String(100))
     directory_no = db.Column(db.String(100))
     phone_mac = db.Column(db.String(100))
@@ -38,7 +40,7 @@ class Data(db.Model):
 
 
 class Devices(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id_devices = db.Column(db.Integer, primary_key=True)
     platform = db.Column(db.String(100))
     ipaddress_platform = db.Column(db.String(100))
     username_platform = db.Column(db.String(100))
@@ -96,7 +98,7 @@ def insert():
 @app.route('/update', methods=['GET', 'POST'])
 def update():
     if request.method == 'POST':
-        my_data = Data.query.get(request.form.get('id'))
+        my_data = Data.query.get(request.form.get('id_data'))
 
         my_data.device = request.form['device']
         my_data.directory_no = request.form['directory_no']
@@ -114,9 +116,9 @@ def update():
 
 
 # This route is for deleting our employee
-@app.route('/delete/<id>/', methods=['GET', 'POST'])
-def delete(id):
-    my_data = Data.query.get(id)
+@app.route('/delete/<id_data>/', methods=['GET', 'POST'])
+def delete(id_data):
+    my_data = Data.query.get(id_data)
     db.session.delete(my_data)
     db.session.commit()
     flash("Phone Device Deleted Successfully")
@@ -146,7 +148,7 @@ def devices():
 @app.route('/edevices', methods=['GET', 'POST'])
 def edvices():
     if request.method == 'POST':
-        my_devices = Devices.query.get(request.form.get('id'))
+        my_devices = Devices.query.get(request.form.get('id_devices'))
         my_devices.platform = request.form['platform']
         my_devices.name_platform = request.form['name_platform']
         my_devices.ipaddress_platform = request.form['ipaddress_platform']
@@ -159,9 +161,9 @@ def edvices():
         return redirect(url_for('devices'))
 
 
-@app.route('/ddevices/<id>/', methods=['GET', 'POST'])
-def ddevices(id):
-    my_devices = Devices.query.get(id)
+@app.route('/ddevices/<id_devices>/', methods=['GET', 'POST'])
+def ddevices(id_devices):
+    my_devices = Devices.query.get(id_devices)
     db.session.delete(my_devices)
     db.session.commit()
     flash("Device Deleted Successfully")
@@ -169,10 +171,11 @@ def ddevices(id):
     return redirect(url_for('devices'))
 
 
+
 @app.route('/excute/', methods=['GET', 'POST'])
 def excute():
     if request.method == 'POST':
-        my_devices = Devices.query.get(request.form.get('id'))
+        my_devices = Devices.query.get(request.form.get('id_devices'))
         my_devices.ipaddress_platform = request.form['ipaddress_platform']
         my_devices.username_platform = request.form['username_platform']
         my_devices.password_platform = request.form['password_platform']
@@ -206,16 +209,31 @@ def excute():
         # return redirect(url_for('devices'))
         flash("Deploy Configuration was Successfully!")
 
+    con = mdb.connect('localhost', 'root', 'root', 'crud')
+
+    cur = con.cursor()
+    id = 2
+    cur.execute(
+        "SELECT id_devices,platform,name_platform,ipaddress_platform,password_platform,username_platform  FROM `crud`.`devices` WHERE id_devices=%s " % id)
+
+    ver = cur.fetchone()
+
     all_data = Data.query.all()
     all_devices = Devices.query.all()
-    return render_template('excute.html', employees=all_data, all_devices=all_devices)
+
+    return render_template('excute.html', ver=ver)
 
 
-@app.route('/resulted/', methods=['GET'])
-def resulted():
-    with open("outputed.txt", 'r') as f:
-        b_lines = [row.rstrip('\n') for row in f]
-    return render_template('resulted.html', b_lines=b_lines)
+@app.route('/resulted/<id_devices>', methods=['GET'])
+def resulted(id_devices):
+    # with open("outputed.txt", 'r') as f:
+    #     b_lines = [row.rstrip('\n') for row in f]
+    # return render_template('resulted.html', b_lines=b_lines)
+    con = mdb.connect('localhost', 'root', 'root', 'crud')
+
+    cur = con.cursor()
+    entries = cur.execute("SELECT id_devices FROM `crud`.`devices`")
+    return render_template('resulted.html', entries=entries)
 
 
 if __name__ == "__main__":

@@ -65,15 +65,15 @@
                                         {{device.name_platform}}
                                     </div>
                                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        <a class="btn btn-info btn-xs" data-target="#modaledevices{{device.id}}"
+                                        <a class="btn btn-info btn-xs" data-target="#modaledevices{{device.id_devices}}"
                                            data-toggle="modal"
-                                           href="/edevices/{{device.id}}">Edit</a>&nbsp;
-                                        <a class="btn btn-danger btn-xs" href="/ddevices/{{device.id}}"
+                                           href="/edevices/{{device.id_devices}}">Edit</a>&nbsp;
+                                        <a class="btn btn-danger btn-xs" href="/ddevices/{{device.id_devices}}"
                                            onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
                                     </div>
                                 </div>
                             </li>
-                            <div class="modal fade" id="modaledevices{{device.id}}" role="dialog">
+                            <div class="modal fade" id="modaledevices{{device.id_devices}}" role="dialog">
                                 <div class="modal-dialog">
 
 

@@ -5,7 +5,7 @@
 
 {% block body %}
 
-
+{{ ver }}
 <div class="flex justify-center overflow-x-auto relative shadow-md sm:rounded-lg">
     <table class="mb-8 space-y-4 text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
@@ -34,18 +34,20 @@
             </th>
             <th class="py-3 px-6" scope="col">
                 Line 2
+
             </th>
         </tr>
         </thead>
 
         <tbody>
-        {% for dev in all_devices %}
+        <!--        {% for emp in employees %}-->
+        {% for dev in ver %}
 
         <tr class="border-b border-gray-200 dark:border-gray-700">
 
             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                 scope="row">
-                {{dev.id}}
+                {{dev.rstrip()}}
             </th>
             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                 scope="row">
@@ -62,138 +64,134 @@
             </td>
 
             <td class="py-4 px-6">
-                {% for emp in employees %}
 
-                {{emp.display_name}}</br>
-                {% endfor %}
+                </br>
             </td>
             <td class="py-4 px-6">
-                {% for emp in employees %}
 
-                {{emp.line1}}</br>
-                {% endfor %}
+                </br>
             </td>
             <td class="py-4 px-6">
-                {% for emp in employees %}
 
-                {{emp.line2}}</br>
-                {% endfor %}
+                </br>
             </td>
 
             <td class="py-4 px-6">
                 <a class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                   data-target="#modalexcute{{dev.id}}" data-toggle="modal" href="/excute/{{dev.id}}" type="submit">Deploy
+                   data-target="#modalexcute{{dev.id_devices}}" data-toggle="modal" href="/excute/{{dev.id_devices}}"
+                   type="submit">Deploy
                     >> </a>
             </td>
 
 
         </tr>
         {% endfor %}
+        <!--        {% endfor %}-->
 
 
         </tbody>
     </table>
 
 </div>
-{% for dev in all_devices %}
-<div class="modal fade" id="modalexcute{{dev.id}}" role="dialog">
+<!--{% for dev in all_devices %}-->
+<!--<div class="modal fade" id="modalexcute{{dev.id_devices}}" role="dialog">-->
 
-    <div class="modal-dialog">
-
-
-        <div class="modal-content">
+<!--    <div class="modal-dialog">-->
 
 
-            <div class="modal-header">
+<!--        <div class="modal-content">-->
 
 
-                <h4 class="modal-title">Excute Information</h4>
+<!--            <div class="modal-header">-->
 
 
-            </div>
+<!--                <h4 class="modal-title">Excute Information</h4>-->
 
 
-            <div class="modal-body">
-
-                <form action="{{url_for('excute')}}" method="POST">
+<!--            </div>-->
 
 
-                    <div class="form-group">
+<!--            <div class="modal-body">-->
+
+<!--                <form action="{{url_for('excute')}}" method="POST">-->
 
 
-                        <label>Platform:</label>
-                        <input name="id" type="hidden" value="{{dev.id}}">
-
-                        <input class="form-control" name="platform" type="text"
-                               value="{{dev.platform}}">
+<!--                    <div class="form-group">-->
 
 
-                    </div>
+<!--                        <label>Platform:</label>-->
+<!--                        <input name="id" type="hidden" value="{{dev.id_devices}}">-->
+
+<!--                        <input class="form-control" name="platform" type="text"-->
+<!--                               value="{{dev.platform}}">-->
 
 
-                    <div class="form-group">
+<!--                    </div>-->
 
 
-                        <label>Device Name:</label>
-
-                        <input class="form-control" name="name_platform" type="text"
-                               value="{{dev.name_platform}}">
+<!--                    <div class="form-group">-->
 
 
-                    </div>
+<!--                        <label>Device Name:</label>-->
+
+<!--                        <input class="form-control" name="name_platform" type="text"-->
+<!--                               value="{{dev.name_platform}}">-->
 
 
-                    <div class="form-group">
+<!--                    </div>-->
 
 
-                        <label>IP Address:</label>
-
-                        <input class="form-control" name="ipaddress_platform" type="text"
-                               value="{{dev.ipaddress_platform}}">
+<!--                    <div class="form-group">-->
 
 
-                    </div>
+<!--                        <label>IP Address:</label>-->
 
-                    <div class="form-group">
-
-                        <label>User Name: </label>
-                        <input class="form-control" name="username_platform" type="text"
-                               value="{{dev.username_platform}}">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label>Password:</label>
-                        <input class="form-control" name="password_platform" type="text"
-                               value="{{dev.password_platform}}">
-
-                    </div>
+<!--                        <input class="form-control" name="ipaddress_platform" type="text"-->
+<!--                               value="{{dev.ipaddress_platform}}">-->
 
 
-                    <div class="form-group">
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+
+<!--                        <label>User Name: </label>-->
+<!--                        <input class="form-control" name="username_platform" type="text"-->
+<!--                               value="{{dev.username_platform}}">-->
+
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+
+<!--                        <label>Password:</label>-->
+<!--                        <input class="form-control" name="password_platform" type="text"-->
+<!--                               value="{{dev.password_platform}}">-->
+
+<!--                    </div>-->
 
 
-                        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                type="submit">Deploy >>
-                        </button>
+<!--                    <div class="form-group">-->
 
 
-                    </div>
+<!--                        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"-->
+<!--                                type="submit">Deploy >>-->
+<!--                        </button>-->
 
 
-                </form>
-
-            </div>
+<!--                    </div>-->
 
 
-        </div>
+<!--                </form>-->
+
+<!--            </div>-->
 
 
-    </div>
+<!--        </div>-->
 
-</div>
-{% endfor %}
+
+<!--    </div>-->
+
+<!--</div>-->
+<!--{% endfor %}-->
 
 {% with messages = get_flashed_messages() %}
 
