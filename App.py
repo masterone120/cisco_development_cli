@@ -174,66 +174,74 @@ def ddevices(id_devices):
 
 @app.route('/excute/', methods=['GET', 'POST'])
 def excute():
-    if request.method == 'POST':
-        my_devices = Devices.query.get(request.form.get('id_devices'))
-        my_devices.ipaddress_platform = request.form['ipaddress_platform']
-        my_devices.username_platform = request.form['username_platform']
-        my_devices.password_platform = request.form['password_platform']
-
-        ssh = paramiko.SSHClient()
-
-        # Load SSH host keys.
-        ssh.load_system_host_keys()
-        # Add SSH host key automatically if needed.
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        # Connect to router using username/password authentication.
-        ssh.connect(my_devices.ipaddress_platform,
-                    username=my_devices.username_platform,
-                    password=my_devices.password_platform,
-                    look_for_keys=False)
-
-        # Run command.
-        ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
-
-        output = ssh_stdout.readlines()
-
-        # Close connection.
-        ssh.close()
-
-        # Analyze show ip route output
-
-        with open('outputed.txt', 'w') as f:
-            for line in output:
-                f.writelines(line)
-
-        # return redirect(url_for('devices'))
-        flash("Deploy Configuration was Successfully!")
-
     con = mdb.connect('localhost', 'root', 'root', 'crud')
 
     cur = con.cursor()
-    id = 2
+    id = request.form.get('id_datas')
     cur.execute(
-        "SELECT id_devices,platform,name_platform,ipaddress_platform,password_platform,username_platform  FROM `crud`.`devices` WHERE id_devices=%s " % id)
+        "SELECT id_data,device,directory_no,phone_mac,display_name,line1,line2  FROM `crud`.`data` WHERE id_data=%s " % id)
 
     ver = cur.fetchone()
+    device = str(ver[1])
+    cur.execute(
+        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform  FROM `crud`.`devices` WHERE name_platform='%s' " % device)
 
-    all_data = Data.query.all()
-    all_devices = Devices.query.all()
+    ver2 = cur.fetchone()
 
-    return render_template('excute.html', ver=ver)
+    b_lines1 = [row for row in ver]
+    b_lines2 = [row for row in ver2]
+
+    return render_template('excute.html', b_lines1=b_lines1, b_lines2=b_lines2)
 
 
-@app.route('/resulted/<id_devices>', methods=['GET'])
-def resulted(id_devices):
-    # with open("outputed.txt", 'r') as f:
-    #     b_lines = [row.rstrip('\n') for row in f]
-    # return render_template('resulted.html', b_lines=b_lines)
+@app.route('/resulted/', methods=['GET', 'POST'])
+def resulted():
     con = mdb.connect('localhost', 'root', 'root', 'crud')
 
     cur = con.cursor()
-    entries = cur.execute("SELECT id_devices FROM `crud`.`devices`")
-    return render_template('resulted.html', entries=entries)
+    ids = request.form.get('id_devicess')
+    cur.execute(
+        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform  FROM `crud`.`devices` WHERE id_devices='%s' " % ids)
+
+    ver11 = cur.fetchone()
+    device = str(ver11[2])
+    cur.execute(
+        "SELECT id_data,device,directory_no,phone_mac,display_name,line1,line2  FROM `crud`.`data` WHERE device='%s' " % device)
+
+    ver22 = cur.fetchone()
+    ssh = paramiko.SSHClient()
+
+    ipaddress_platform = ver11[3]
+    username_platform = ver11[4]
+    password_platform = ver11[5]
+    # Load SSH host keys.
+    ssh.load_system_host_keys()
+    # Add SSH host key automatically if needed.
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # Connect to router using username/password authentication.
+    ssh.connect(ipaddress_platform,
+                username=username_platform,
+                password=password_platform,
+                look_for_keys=False)
+
+    # Run command.
+    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
+
+    output = ssh_stdout.readlines()
+
+    # Close connection.
+    ssh.close()
+
+    # Analyze show ip route output
+
+    with open('outputed.txt', 'w') as f:
+        for line in output:
+            f.writelines(line)
+
+    # return redirect(url_for('devices'))
+    flash("Deploy Configuration was Successfully!")
+
+    return render_template('resulted.html')
 
 
 if __name__ == "__main__":
