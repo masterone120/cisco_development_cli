@@ -64,37 +64,77 @@
 import paramiko
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
-import MySQLdb as mdb
+# import MySQLdb as mdb
+# import sys
+#
+# from App import Devices
+#
+# con = None
+# try:
+#     con = mdb.connect('localhost', 'root', 'root', 'crud')
+#
+#     cur = con.cursor()
+#
+#     # cur.execute("SET @ids := %s;")
+#     query = """SET @ids := %s;"""
+#     cur.execute("SELECT id  FROM `crud`.`devices`;")
+#     tuple1 = cur.fetchone()
+#     cur.execute(query, tuple1)
+#     cur.execute(
+#         "SELECT platform,name_platform,ipaddress_platform,password_platform,username_platform  FROM `crud`.`devices` WHERE id=@ids ;")
+#
+#     ver = cur.fetchone()
+#     # # ssh_client = paramiko.SSHClient()
+#     # # ssh_client.connect(hostname='hostname', username=ver[3], password=ver[4])
+#
+#     print(ver)
+#
+# except mdb.Error as e:
+#
+#     print("Error %d: %s" % (e.args[0], e.args[1]))
+#     sys.exit(1)
+#
+# finally:
+#
+#     if con:
+#         con.close()
+
+
+import paramiko
+import cmd
+import time
 import sys
 
-from App import Devices
+buff = ''
+resp = ''
 
-con = None
-try:
-    con = mdb.connect('localhost', 'root', 'root', 'crud')
+ssh = paramiko.SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect('192.168.5.11', username='alisfactory', password='Ad56#33n$xw3')
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+chan = ssh.invoke_shell()
 
-    cur = con.cursor()
+# turn off paging
+chan.send('terminal length 0\n')
+time.sleep(1)
+resp = chan.recv(9999)
+output = resp.decode('ascii').split(',')
+# print (''.join(output))
 
-    # cur.execute("SET @ids := %s;")
-    query = """SET @ids := %s;"""
-    cur.execute("SELECT id  FROM `crud`.`devices`;")
-    tuple1 = cur.fetchone()
-    cur.execute(query, tuple1)
-    cur.execute(
-        "SELECT platform,name_platform,ipaddress_platform,password_platform,username_platform  FROM `crud`.`devices` WHERE id=@ids ;")
+# Display output of first command
+chan.send('sh ip int br')
+chan.send('\n')
+time.sleep(1)
+resp = chan.recv(9999)
+output = resp.decode('ascii').split(',')
+print(''.join(output))
 
-    ver = cur.fetchone()
-    # # ssh_client = paramiko.SSHClient()
-    # # ssh_client.connect(hostname='hostname', username=ver[3], password=ver[4])
+# Display output of second command
+chan.send('sh ver')
+chan.send('\n')
+time.sleep(1)
+resp = chan.recv(9999)
+output = resp.decode('ascii').split(',')
+print(''.join(output))
 
-    print(ver)
-
-except mdb.Error as e:
-
-    print("Error %d: %s" % (e.args[0], e.args[1]))
-    sys.exit(1)
-
-finally:
-
-    if con:
-        con.close()
+ssh.close()

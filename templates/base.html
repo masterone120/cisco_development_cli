@@ -23,7 +23,16 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <script src="../static/src/flowbite.js"></script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', e => {
+        document.forms.form01.addEventListener('change', e => {
+            if (e.target.name == 'yesOrNo') {
+                let yesOrNo = new Boolean(parseInt(e.target.form.yesOrNo.value));
+                e.target.form.yesQuestion.disabled = yesOrNo.valueOf();
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

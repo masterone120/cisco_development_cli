@@ -316,8 +316,8 @@
         </div>
 
 
-        <!-- Modal Add Employee-->
 
+        <!-- Modal Add Employee-->
         <div class="modal fade" id="mymodal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -329,7 +329,7 @@
 
 
 
-                            <form action="{{url_for('insert')}}" method="POST">
+                            <form action="{{url_for('insert')}}" method="POST" name="form01">
 
                                 <div class="grid gap-6 mb-6 md:grid-cols-2">
 
@@ -392,6 +392,7 @@
                                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            id="line1" name="line1" placeholder="line1" required type="text">
                                 </div>
+
                                 <div class="mb-6">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                            for="line2">Line 2</label>

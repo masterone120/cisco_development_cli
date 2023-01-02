@@ -1,4 +1,5 @@
-import current as current
+import sys
+import time
 import mysql
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
@@ -46,13 +47,16 @@ class Devices(db.Model):
     username_platform = db.Column(db.String(100))
     password_platform = db.Column(db.String(100))
     name_platform = db.Column(db.String(100))
+    protocol_platform = db.Column(db.String(100))
 
-    def __init__(self, platform, ipaddress_platform, username_platform, password_platform, name_platform):
+    def __init__(self, platform, ipaddress_platform, username_platform, password_platform, name_platform,
+                 protocol_platform):
         self.platform = platform
         self.ipaddress_platform = ipaddress_platform
         self.username_platform = username_platform
         self.password_platform = password_platform
         self.name_platform = name_platform
+        self.protocol_platform = protocol_platform
 
 
 
@@ -136,7 +140,9 @@ def devices():
         username_platform = request.form['username_platform']
         password_platform = request.form['password_platform']
         name_platform = request.form['name_platform']
-        my_devices = Devices(platform, ipaddress_platform, username_platform, password_platform, name_platform)
+        protocol_platform = request.form['protocol_platform']
+        my_devices = Devices(platform, ipaddress_platform, username_platform, password_platform, name_platform,
+                             protocol_platform)
         db.session.add(my_devices)
         db.session.commit()
         flash('Add Device Successfully!')
@@ -154,6 +160,7 @@ def edvices():
         my_devices.ipaddress_platform = request.form['ipaddress_platform']
         my_devices.username_platform = request.form['username_platform']
         my_devices.password_platform = request.form['password_platform']
+        my_devices.protocol_platform = request.form['protocol_platform']
         db.session.commit()
 
         flash('Edit device successfully!')
@@ -184,7 +191,7 @@ def excute():
     ver = cur.fetchone()
     device = str(ver[1])
     cur.execute(
-        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform  FROM `crud`.`devices` WHERE name_platform='%s' " % device)
+        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform,protocol_platform  FROM `crud`.`devices` WHERE name_platform='%s' " % device)
 
     ver2 = cur.fetchone()
 
@@ -201,7 +208,7 @@ def resulted():
     cur = con.cursor()
     ids = request.form.get('id_devicess')
     cur.execute(
-        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform  FROM `crud`.`devices` WHERE id_devices='%s' " % ids)
+        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform,protocol_platform  FROM `crud`.`devices` WHERE id_devices='%s' " % ids)
 
     ver11 = cur.fetchone()
     device = str(ver11[2])
@@ -214,20 +221,47 @@ def resulted():
     ipaddress_platform = ver11[3]
     username_platform = ver11[4]
     password_platform = ver11[5]
+    protocol_platform = ver11[6]
+    if protocol_platform == 'Telnet':
+        protocol_platform = 23
+    else:
+        protocol_platform = 22
     # Load SSH host keys.
     ssh.load_system_host_keys()
     # Add SSH host key automatically if needed.
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     # Connect to router using username/password authentication.
     ssh.connect(ipaddress_platform,
+                port=protocol_platform,
                 username=username_platform,
                 password=password_platform,
                 look_for_keys=False)
 
     # Run command.
-    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command("sho int status | begin Gi")
+    chan = ssh.invoke_shell()
 
-    output = ssh_stdout.readlines()
+    # turn off paging
+    chan.send('terminal length 0\n')
+    time.sleep(1)
+    resp = chan.recv(9999)
+    output = resp.decode('ascii').split(',')
+    # print (''.join(output))
+
+    # Display output of first command
+    chan.send('conf t')
+    chan.send('\n')
+    time.sleep(1)
+    resp = chan.recv(9999)
+    output = resp.decode('ascii').split(',')
+    print(''.join(output))
+
+    # Display output of second command
+    chan.send('do sho int status')
+    chan.send('\n')
+    time.sleep(1)
+    resp = chan.recv(9999)
+    output = resp.decode('ascii').split(',')
+    print(''.join(output))
 
     # Close connection.
     ssh.close()
