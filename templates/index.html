@@ -317,113 +317,111 @@
         </div>
 
 
-
         <!-- Modal Add Employee-->
         <div class="modal fade" id="mymodal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
 
-                            <h4 class="modal-title">Add Phone Device</h4>
-                        </div>
-                        <div class="modal-body">
+                        <h4 class="modal-title">Add Phone Device</h4>
+                    </div>
+                    <div class="modal-body">
 
 
+                        <form action="{{url_for('insert')}}" method="POST" name="form01">
 
-                            <form action="{{url_for('insert')}}" method="POST" name="form01">
+                            <div class="grid gap-6 mb-6 md:grid-cols-2">
 
-                                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                                <div>
 
-                                    <div>
-
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="device">Device</label>
-
-                                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                id="device" name="device">
-
-                                            <option selected>Choose Device</option>
-                                            {% for row in all_devices %}
-                                            <option>{{row.name_platform}}</option>
-                                            {% endfor %}
-
-                                        </select>
-
-                                    </div>
-
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="directory_no">Directory Number</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="directory_no" name="directory_no" placeholder="Directory Number"
-                                               required type="text">
-                                    </div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="phone_mac">Phone MAC</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="phone_mac" name="phone_mac" placeholder="Phone MAC" required
-                                               type="text">
-                                    </div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="user_directory">User Directory</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="user_directory" name="user_directory" placeholder="user directory"
-                                               required type="text">
-                                    </div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="password_directory">Password Directory</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="password_directory" name="password_directory" placeholder="password"
-                                               required type="text">
-                                    </div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                               for="display_name">Display Name</label>
-                                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               id="display_name" name="display_name" placeholder="" required
-                                               type="text">
-                                    </div>
-                                </div>
-                                <div class="mb-6">
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                           for="line1">Line 1</label>
-                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           id="line1" name="line1" placeholder="line1" required type="text">
+                                           for="device">Device</label>
+
+                                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            id="device" name="device">
+
+                                        <option selected>Choose Device</option>
+                                        {% for row in all_devices %}
+                                        <option>{{row.name_platform}}</option>
+                                        {% endfor %}
+
+                                    </select>
+
                                 </div>
 
-                                <div class="mb-6">
+                                <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                           for="line2">Line 2</label>
+                                           for="directory_no">Directory Number</label>
                                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           id="line2" name="line2" placeholder="line 2" required type="password">
+                                           id="directory_no" name="directory_no" placeholder="Directory Number"
+                                           required type="text">
                                 </div>
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                           for="phone_mac">Phone MAC</label>
+                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           id="phone_mac" name="phone_mac" placeholder="Phone MAC" required
+                                           type="text">
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                           for="user_directory">User Directory</label>
+                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           id="user_directory" name="user_directory" placeholder="user directory"
+                                           required type="text">
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                           for="password_directory">Password Directory</label>
+                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           id="password_directory" name="password_directory" placeholder="password"
+                                           required type="text">
+                                </div>
+                                <div>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                           for="display_name">Display Name</label>
+                                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           id="display_name" name="display_name" placeholder="" required
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                       for="line1">Line 1</label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       id="line1" name="line1" placeholder="line1" required type="text">
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                       for="line2">Line 2</label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       id="line2" name="line2" placeholder="line 2" required type="password">
+                            </div>
 
 
-                                <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                        type="submit">Save
-                                </button>
-
-
-                            </form>
-
-
-                        </div>
-
-
-                        <div class="float-right">
-
-                            <button class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out float-right"
-                                    data-dismiss="modal" type="button">Close
+                            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    type="submit">Save
                             </button>
 
 
-                        </div>
+                        </form>
 
 
                     </div>
+
+
+                    <div class="float-right">
+
+                        <button class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out float-right"
+                                data-dismiss="modal" type="button">Close
+                        </button>
+
+
+                    </div>
+
+
+                </div>
 
 
             </div>

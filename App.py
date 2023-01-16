@@ -2,9 +2,14 @@ import sys
 import time
 import mysql
 from flask import Flask, render_template, request, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Length
 import paramiko
 import MySQLdb as mdb
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
@@ -14,6 +19,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/crud'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 
 # Creating model table for our CRUD database
@@ -27,7 +35,6 @@ class Data(db.Model):
     display_name = db.Column(db.String(100))
     line1 = db.Column(db.String(100))
     line2 = db.Column(db.String(100))
-
 
     def __init__(self, device, directory_no, phone_mac, user_directory, password_directory, display_name, line1, line2):
         self.device = device
@@ -59,10 +66,39 @@ class Devices(db.Model):
         self.protocol_platform = protocol_platform
 
 
+class Users(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(int(user_id))
+
+
+class LoginForm(FlaskForm):
+    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+    remember = BooleanField('remember me')
+
+
+class RegisterForm(FlaskForm):
+    email = StringField('email', validators=[InputRequired(), Length(min=4, max=80)])
+    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+
 
 # This is the index route where we are going to
 # query on all our employee data
 @app.route('/')
+@login_required
 def Index():
     page = request.args.get('page', 1, type=int)
     all_data = Data.query.paginate(page=page, per_page=10)
@@ -72,9 +108,40 @@ def Index():
     return render_template("index.html", employees=all_data, all_devices=all_devices)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = Users.query.filter_by(username=form.username.data).first()
+        if user:
+            if check_password_hash(user.password, form.password.data):
+                login_user(user, remember=form.remember.data)
+                return redirect(url_for('Index'))
+        return redirect(url_for('login'))
+    return render_template('login.html', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='sha256')
+        new_user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return '<h1> New User Has Been Created!'
+
+    return render_template('signup.html', form=form)
+
 
 # this route is for inserting data to mysql database via html forms
 @app.route('/insert', methods=['POST'])
@@ -130,8 +197,6 @@ def delete(id_data):
     return redirect(url_for('Index'))
 
 
-
-
 @app.route('/devices', methods=['GET', 'POST'])
 def devices():
     if request.method == 'POST':
@@ -166,8 +231,6 @@ def edvices():
         flash('Edit device successfully!')
 
         return redirect(url_for('devices'))
-
-
 @app.route('/ddevices/<id_devices>/', methods=['GET', 'POST'])
 def ddevices(id_devices):
     my_devices = Devices.query.get(id_devices)
@@ -176,7 +239,6 @@ def ddevices(id_devices):
     flash("Device Deleted Successfully")
 
     return redirect(url_for('devices'))
-
 
 
 @app.route('/excute/', methods=['GET', 'POST'])

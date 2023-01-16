@@ -21,10 +21,20 @@
                                     />
                                     <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">We are The Lotus Team</h4>
                                 </div>
-                                <form action="/login" method="POST">
+                                <form action="/signup" method="POST">
                                     <p class="mb-4">Please login to your account</p>
                                     <div class="mb-4">
                                         {{ form.hidden_tag() }}
+
+
+                                        <!--                                        <input-->
+                                        <!--                                                class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"-->
+                                        <!--                                                id="{{form.username}}"-->
+                                        <!--                                                placeholder="Username"-->
+                                        <!--                                                type="text"-->
+                                        <!--                                                name="{{ form.username }}"-->
+
+                                        <!--                                        />-->
                                     </div>
                                     <div class="mb-4">
                                         <lable>Username:</lable>
@@ -32,12 +42,12 @@
                                         {{ form.username }}
                                     </div>
                                     <div class="mb-4">
-                                        <label>Password:</label>
-                                        {{ form.password }}
+                                        <label>Email:</label>
+                                        {{ form.email }}
                                     </div>
                                     <div class="mb-4">
-                                        <label>Remember Me?</label>
-                                        {{ form.remember }}
+                                        <label>Password:</label>
+                                        {{ form.password }}
                                     </div>
                                     <div class="text-center pt-1 mb-12 pb-1">
                                         <button
