@@ -95,17 +95,18 @@ class RegisterForm(FlaskForm):
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
 
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
+
+
 # This is the index route where we are going to
 # query on all our employee data
 @app.route('/')
 @login_required
 def Index():
-    page = request.args.get('page', 1, type=int)
-    all_data = Data.query.paginate(page=page, per_page=10)
-
-    all_devices = Devices.query.all()
-
-    return render_template("index.html", employees=all_data, all_devices=all_devices)
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -144,8 +145,13 @@ def signup():
 
 
 # this route is for inserting data to mysql database via html forms
-@app.route('/insert', methods=['POST'])
+@app.route('/insert', methods=['GET', 'POST'])
 def insert():
+    page = request.args.get('page', 1, type=int)
+    all_data = Data.query.paginate(page=page, per_page=10)
+
+    all_devices = Devices.query.all()
+
     if request.method == 'POST':
         device = request.form['device']
         directory_no = request.form['directory_no']
@@ -162,7 +168,8 @@ def insert():
 
         flash("Phone Device Inserted Successfully")
 
-        return redirect(url_for('Index'))
+        return redirect(url_for('dashboard'))
+    return render_template("insert.html", employees=all_data, all_devices=all_devices)
 
 
 # this is our update route where we are going to update our employee

@@ -2,6 +2,22 @@
 <html lang="en">
 <head>
 
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
+            rel="stylesheet"
+    />
+
 
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
@@ -23,16 +39,13 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <script src="../static/src/flowbite.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', e => {
-        document.forms.form01.addEventListener('change', e => {
-            if (e.target.name == 'yesOrNo') {
-                let yesOrNo = new Boolean(parseInt(e.target.form.yesOrNo.value));
-                e.target.form.yesQuestion.disabled = yesOrNo.valueOf();
-            }
-        });
-    });
-</script>
+
+
+<!-- MDB -->
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
+        type="text/javascript"
+></script>
 
 </body>
 </html>
