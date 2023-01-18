@@ -238,6 +238,8 @@ def edvices():
         flash('Edit device successfully!')
 
         return redirect(url_for('devices'))
+
+
 @app.route('/ddevices/<id_devices>/', methods=['GET', 'POST'])
 def ddevices(id_devices):
     my_devices = Devices.query.get(id_devices)
@@ -246,6 +248,12 @@ def ddevices(id_devices):
     flash("Device Deleted Successfully")
 
     return redirect(url_for('devices'))
+
+
+@app.route('/trunk', methods=['GET', 'POST'])
+@login_required
+def trunk():
+    return render_template('trunks/inout.html')
 
 
 @app.route('/excute/', methods=['GET', 'POST'])

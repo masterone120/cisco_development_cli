@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% include 'sidebar.html' %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row  flex justify-center">
+        <div class="col-md-6">
+            </br>
+            </br>
+            <form action="#" method="POST" name="form01">
+
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+                    <div>
+
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                               for="tag">Tag Trunk:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               id="tag" max="10000" min="1"
+                               name="tag" placeholder="tag" required type="number">
+
+                    </div>
+
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                               for="type">Type Trunk:</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                id="type" name="type">
+
+                            <option selected> Choose Type</option>
+                            <option>POTS</option>
+                            <option>Voip</option>
+
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                               for="destination_pattern">Destination Pattern:</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               id="destination_pattern" name="pattern" placeholder="Pattern" required
+                               type="text">
+
+                        <i class="float-right text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm px-1 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                           data-tooltip-target="tooltip-default">info</i>
+                        <i class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                           id="tooltip-default" role="tooltip">
+                            the acces rule was is</br>
+                            the you can</br>
+                            yda</br>
+                            24
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </i>
+
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                               for="user_directory">User Directory</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               id="user_directory" name="user_directory" placeholder="user directory"
+                               required type="text">
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                               for="password_directory">Password Directory</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               id="password_directory" name="password_directory" placeholder="password"
+                               required type="text">
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                               for="display_name">Display Name</label>
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               id="display_name" name="display_name" placeholder="" required
+                               type="text">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                           for="line1">Line 1</label>
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           id="line1" name="line1" placeholder="line1" required type="text">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                           for="line2">Line 2</label>
+                    <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           id="line2" name="line2" placeholder="line 2" required type="password">
+                </div>
+
+
+                <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        type="submit">Save
+                </button>
+
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
