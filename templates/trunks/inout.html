@@ -27,13 +27,14 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                for="type">Type Trunk:</label>
                         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                id="type" name="type">
+                                id="type" name="type" onchange="yesnoCheck(this);">
 
                             <option selected> Choose Type</option>
                             <option>POTS</option>
                             <option>Voip</option>
 
                         </select>
+
                     </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -42,45 +43,61 @@
                                id="destination_pattern" name="pattern" placeholder="Pattern" required
                                type="text">
 
-                        <i class="float-right text-white bg-blue-100 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm px-1 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                           data-tooltip-target="tooltip-default">info</i>
-                        <i class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-                           id="tooltip-default" role="tooltip">
+                        <span class="float-right text-white bg-green-300 hover:bg-green-300 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-1 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                              data-tooltip-target="tooltip-default">help</span>
+                        <span class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                              id="tooltip-default" role="tooltip">
                             the acces rule was is</br>
                             the you can</br>
                             yda</br>
                             24
                             <div class="tooltip-arrow" data-popper-arrow></div>
-                        </i>
+                        </span>
 
                     </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                               for="user_directory">User Directory</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               id="user_directory" name="user_directory" placeholder="user directory"
-                               required type="text">
+                               for="codec">Codec:</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                id="codec" name="codec">
+
+                            <option selected> Choose Codec</option>
+                            <option>g711ulaw</option>
+                            <option>g711alaw</option>
+                            <option>g729</option>
+                        </select>
                     </div>
-                    <div>
+
+                    <div id="Session_target" style="display: none;">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                               for="password_directory">Password Directory</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               id="password_directory" name="password_directory" placeholder="password"
-                               required type="text">
+                               for="Session_target">Session Target:</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                id="Session_target" name="Session_target">
+
+                            <option selected> Choose Target</option>
+                            <option>Gateway1</option>
+                            <option>Gateway2</option>
+                            <option>Server1</option>
+                        </select>
                     </div>
-                    <div>
+                    <div id="port" style="display: none;">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                               for="display_name">Display Name</label>
-                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               id="display_name" name="display_name" placeholder="" required
-                               type="text">
+                               for="voice-port">Port:</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                id="voice-port" name="voice-port">
+
+                            <option selected> Choose Voice Port</option>
+                            <option>Port 0/0/0</option>
+                            <option>Port 0/1/0</option>
+                            <option>Port 0:0:15</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                           for="line1">Line 1</label>
+                           for="protocol">Protocol:</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           id="line1" name="line1" placeholder="line1" required type="text">
+                           id="protocol" name="protocl" placeholder="protocol" required type="text">
                 </div>
 
                 <div class="mb-6">

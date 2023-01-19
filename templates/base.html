@@ -24,7 +24,18 @@
 
 <script src="../static/src/flowbite.js"></script>
 
-
+<script>
+    function yesnoCheck(that) {
+        if (that.value == "Voip") {
+            document.getElementById("Session_target").style.display = "block";
+            document.getElementById("port").style.display = "none";
+        }
+        if (that.value == "POTS") {
+            document.getElementById("port").style.display = "block";
+            document.getElementById("Session_target").style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>
