@@ -6,7 +6,7 @@
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
     <link href="../static/src/output.css" rel="stylesheet"/>
-
+    <link href="../static/src/bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %} </title>
 </head>
@@ -21,9 +21,9 @@
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script crossorigin="anonymous" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script href="../static/src/jquery.min.js"></script>
 
 <script src="../static/src/flowbite.js"></script>
-
 <script>
     function yesnoCheck(that) {
         if (that.value == "Voip") {
@@ -37,5 +37,30 @@
     }
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        var maxFieldLimit = 10; //Input fields increment limitation
+        var add_more_button = $('.add_button'); //Add button selector
+        var Fieldwrapper = $('.input_field_wrapper'); //Input field wrapper
+        var fieldHTML = '<div><input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button" style="padding:0px 10px;" title="Remove field"><button class=" btn btn-danger float-right">-</button></a></div>'; //New input field html
+        var x = 1; //Initial field counter is 1
+        $(add_more_button).click(function(){ //Once add button is clicked
+            if(x < maxFieldLimit){ //Check maximum number of input fields
+                x++; //Increment field counter
+                $(Fieldwrapper).append(fieldHTML); // Add field html
+            }
+        });
+        $(Fieldwrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    });
+</script>
+
+
+
+
 </body>
+
 </html>

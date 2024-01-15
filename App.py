@@ -146,6 +146,7 @@ def signup():
 
 # this route is for inserting data to mysql database via html forms
 @app.route('/insert', methods=['GET', 'POST'])
+@login_required
 def insert():
     page = request.args.get('page', 1, type=int)
     all_data = Data.query.paginate(page=page, per_page=10)
@@ -174,6 +175,7 @@ def insert():
 
 # this is our update route where we are going to update our employee
 @app.route('/update', methods=['GET', 'POST'])
+@login_required
 def update():
     if request.method == 'POST':
         my_data = Data.query.get(request.form.get('id_data'))
@@ -195,6 +197,7 @@ def update():
 
 # This route is for deleting our employee
 @app.route('/delete/<id_data>/', methods=['GET', 'POST'])
+@login_required
 def delete(id_data):
     my_data = Data.query.get(id_data)
     db.session.delete(my_data)
@@ -205,6 +208,7 @@ def delete(id_data):
 
 
 @app.route('/devices', methods=['GET', 'POST'])
+@login_required
 def devices():
     if request.method == 'POST':
         platform = request.form['platform']
@@ -224,6 +228,7 @@ def devices():
 
 
 @app.route('/edevices', methods=['GET', 'POST'])
+@login_required
 def edvices():
     if request.method == 'POST':
         my_devices = Devices.query.get(request.form.get('id_devices'))
@@ -241,6 +246,7 @@ def edvices():
 
 
 @app.route('/ddevices/<id_devices>/', methods=['GET', 'POST'])
+@login_required
 def ddevices(id_devices):
     my_devices = Devices.query.get(id_devices)
     db.session.delete(my_devices)
@@ -254,6 +260,13 @@ def ddevices(id_devices):
 @login_required
 def trunk():
     return render_template('trunks/inout.html')
+
+
+@app.route('/accessory', methods=['GET', 'POST'])
+@login_required
+def accessory():
+    devices_all = Devices.query.all()
+    return render_template('accessory/accessory.html', devices_all=devices_all)
 
 
 @app.route('/excute/', methods=['GET', 'POST'])

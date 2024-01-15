@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% include 'sidebar.html' %}
+
+
+{% block body %}
+<div class="container">
+  <div class="row  flex justify-center">
+    <div class="col-md-6">
+
+      <form action="#" method="POST" name="form01">
+
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+          <div>
+
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                   for="device">Select Device:</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="device" name="device">
+
+              <option selected>Choose Device</option>
+              {% for row in devices_all %}
+              <option>{{row.name_platform}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="input_field_wrapper">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                   for="voicecard">Add Voice Card:</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                     id="voicecard" name="field_name[]" placeholder="x/x/x" required
+                     type="text">
+            <a href="javascript:void(0);" class="float-right add_button" title="Add field"><button class=" btn btn-primary" style=" margin:5px;">+</button></a>
+          </div>
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                   for="e1card">Add E1/T1 Card:</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   id="e1card" name="e1card" placeholder="X/X:15" required
+                   type="text" pattern="X/X:15">
+          </div>
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                   for="codecgpname">Codec Group Name:</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   id="codecgpname" name="codecgpname" placeholder="codec group name" required
+                   type="text">
+
+
+          </div>
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                   for="codec">Select Codec:</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    id="codec" name="codec">
+
+              <option selected> Choose Codec</option>
+              <option>g711ulaw</option>
+              <option>g711alaw</option>
+              <option>g729</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                   for="trunkgroupname">Trunk Group Name:</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   id="trunkgroupname" name="trunkgroupname" placeholder="codec group name" required
+                   type="text">
+
+          </div>
+
+
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                 for="protocol">Protocol:</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 id="protocol" name="protocl" placeholder="protocol" required type="text">
+        </div>
+
+        <div class="mb-6">
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                 for="line2">Line 2</label>
+          <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 id="line2" name="line2" placeholder="line 2" required type="password">
+        </div>
+
+
+        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="submit">Save
+        </button>
+
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
+
