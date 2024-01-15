@@ -1,6 +1,6 @@
 import sys
 import time
-import mysql
+#import mysql
 from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -166,6 +166,10 @@ def insert():
         my_data = Data(device, directory_no, phone_mac, user_directory, password_directory, display_name, line1, line2)
         db.session.add(my_data)
         db.session.commit()
+        fo= open("conf.txt", "w")
+        f1 = device,display_name
+        fo.writelines(f1)
+        fo.close()
 
         flash("Phone Device Inserted Successfully")
 
@@ -271,24 +275,8 @@ def accessory():
 
 @app.route('/excute/', methods=['GET', 'POST'])
 def excute():
-    con = mdb.connect('localhost', 'root', 'root', 'crud')
 
-    cur = con.cursor()
-    id = request.form.get('id_datas')
-    cur.execute(
-        "SELECT id_data,device,directory_no,phone_mac,display_name,line1,line2  FROM `crud`.`data` WHERE id_data=%s " % id)
-
-    ver = cur.fetchone()
-    device = str(ver[1])
-    cur.execute(
-        "SELECT id_devices,platform,name_platform,ipaddress_platform,username_platform,password_platform,protocol_platform  FROM `crud`.`devices` WHERE name_platform='%s' " % device)
-
-    ver2 = cur.fetchone()
-
-    b_lines1 = [row for row in ver]
-    b_lines2 = [row for row in ver2]
-
-    return render_template('excute.html', b_lines1=b_lines1, b_lines2=b_lines2)
+    return render_template('index.html')
 
 
 @app.route('/resulted/', methods=['GET', 'POST'])
